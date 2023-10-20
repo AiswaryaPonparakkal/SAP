@@ -1,0 +1,23 @@
+interest
+----------------
+
+REPORT ZAISHU_INTEREST.
+PARAMETERS : amount TYPE p DECIMALS 4,
+          profit TYPE i,
+          days TYPE i,
+          SI AS CHECKBOX.
+DATA : ci TYPE p DECIMALS 4,
+     interest TYPE P DECIMALS 4.
+IF SI eq 'X'.
+interest = ( amount * profit * days  ) / 100.
+ci = amount + interest.
+ELSE.
+  ci = amount.
+  DO days TIMES.
+  interest = ci * (  profit / 100 ).
+  ci = ci + interest.
+  ENDDO.
+ENDIF.
+WRITE :  'Initial Amount:', amount,
+           /'Total Days:',days,
+           /'Total Amount:',ci.

@@ -1,0 +1,19 @@
+--------------------------------------
+sturcture in table marc
+---------------------------------
+
+REPORT ZAISWARYA_MARC.
+
+TYPES : BEGIN OF ty_marc,
+  matnr TYPE MARC-matnr,
+  werks TYPE MARC-WERKS,
+  END OF ty_marc.
+DATA v_name1 TYPE t001w-name1.
+DATA st_marc TYPE ty_marc.
+PARAMETERS p_marc TYPE MARC-matnr.
+SELECT single matnr werks FROM MARC INTO st_marc WHERE matnr EQ p_marc.
+SELECT SINGLE name1 FROM t001w INTO v_name1 WHERE werks eq st_marc-werks.
+  WRITE : st_marc-matnr,
+  st_marc-werks,
+  v_name1.
+*  ENDSELECT.

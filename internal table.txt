@@ -1,0 +1,24 @@
+CLASS 8
+
+REPORT ZAISH_INTERNAL_TABLE.
+TYPES : BEGIN OF ty_makt,
+  matnr TYPE makt-matnr,
+  spras TYPE makt-spras,
+  maktx TYPE makt-maktx,
+  END OF ty_makt.
+  DATA : it_makt TYPE TABLE OF ty_makt,
+        wa_makt like LINE OF it_makt.
+  wa_makt-matnr = '200'.
+  wa_makt-spras = 'E'.
+  wa_makt-maktx = 'pen'.
+  APPEND wa_makt to it_makt.
+  wa_makt-matnr = '300'.
+  wa_makt-spras = 'f'.
+  wa_makt-maktx = 'pencil'.
+  APPEND wa_makt to it_makt.
+  wa_makt-matnr = '400'.
+  wa_makt-spras = 'g'.
+  wa_makt-maktx = 'book'.
+  APPEND wa_makt to it_makt.
+  READ TABLE it_makt INTO wa_makt INDEX 3.
+  WRITE wa_makt.
