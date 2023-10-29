@@ -1,0 +1,86 @@
+-----------------------------------------
+pass by reference (USING OR CHANGING)
+---------------------------------------------
+REPORT ZAISH_SUBROUTINE.
+
+DATA : d_matnr  TYPE makt-matnr,
+      d_spras TYPE makt-spras,
+      d_maktx TYPE makt-maktx.
+
+d_matnr = '000000000000000011'.
+d_spras = 'E'.
+
+PERFORM function USING d_matnr d_spras CHANGING d_maktx.
+*&---------------------------------------------------------------------*
+*& Form function
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM function USING p_d_matnr p_d_spras CHANGING p_d_maktx.
+  SELECT maktx FROM makt INTO p_d_maktx WHERE matnr eq p_d_matnr and spras eq p_d_spras.
+
+  ENDSELECT.
+  WRITE p_d_maktx.
+ENDFORM.
+
+
+--------------------------------------------------------
+pass by value
+-------------------------------------------------------
+
+DATA : d_matnr  TYPE makt-matnr,
+      d_spras TYPE makt-spras,
+      d_maktx TYPE makt-maktx.
+
+d_matnr = '000000000000000011'.
+d_spras = 'E'.
+
+PERFORM function USING d_matnr d_spras CHANGING d_maktx.
+WRITE d_maktx.
+*&---------------------------------------------------------------------*
+*& Form function
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM function USING VALUE(p_d_matnr)
+      VALUE(p_d_spras)
+   CHANGING p_d_maktx.
+  SELECT maktx FROM makt INTO p_d_maktx WHERE matnr eq p_d_matnr and spras eq p_d_spras.
+  ENDSELECT.
+*  WRITE p_d_maktx.
+ENDFORM.
+
+--------------------------------------------------------------
+pass by value and result
+---------------------------------------------------------
+
+DATA : d_matnr  TYPE makt-matnr,
+      d_spras TYPE makt-spras,
+      d_maktx TYPE makt-maktx.
+
+d_matnr = '000000000000000011'.
+d_spras = 'E'.
+
+PERFORM function USING d_matnr d_spras CHANGING d_maktx.
+WRITE d_maktx.
+*&---------------------------------------------------------------------*
+*& Form function
+*&---------------------------------------------------------------------*
+*& text
+*&---------------------------------------------------------------------*
+*& -->  p1        text
+*& <--  p2        text
+*&---------------------------------------------------------------------*
+FORM function USING VALUE(p_d_matnr)
+      VALUE(p_d_spras)
+   CHANGING VALUE(p_d_maktx).
+  SELECT maktx FROM makt INTO p_d_maktx WHERE matnr eq p_d_matnr and spras eq p_d_spras.
+  ENDSELECT.
+*  WRITE p_d_maktx.
+ENDFORM. 
