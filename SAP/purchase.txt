@@ -1,0 +1,85 @@
+purchase
+------------------------- 
+
+
+REPORT ZAISH_PURCHASE.
+TYPES :BEGIN OF ty_vbap,
+  posnr TYPE vbap-posnr,
+  matnr TYPE vbap-matnr,
+  arktx TYPe vbap-arktx,
+  kwmeng TYPE vbap-kwmeng,
+  zieme TYPE vbap-zieme,
+  netwr TYPE vbap-netwr,
+  END OF ty_vbap.
+TYPES : BEGIN OF ty_vbak,
+  vbeln TYPE vbak-vbeln,
+  audat TYPE vbak-audat,
+  netwr TYPE vbak-netwr,
+  kunnr TYPE vbak-kunnr,
+  END OF ty_vbak.
+
+  DATA : st_vbap TYPE ty_vbap,
+   st_vbak TYPE ty_vbak,
+   st_kna1 TYPE kna1-name1,
+   st_t006a TYPE t006a-mseht.
+
+  PARAMETERS : p_docnum TYPE vbak-vbeln.
+
+SELECT SINGLE vbeln audat netwr kunnr FROM vbak INTO st_vbak WHERE vbeln EQ p_docnum.
+SELECT SINGLE name1 FROM kna1 INTO st_kna1 WHERE kunnr EQ st_vbak-kunnr.
+   WRITE : / 'document number : ', st_vbak-vbeln,
+   / 'document date : ', st_vbak-audat,
+   / 'net value : ', st_vbak-netwr,
+   / 'sold to party : ', st_kna1.
+-------------------------------------
+
+REPORT ZAISH_PURCHASE.
+TYPES :BEGIN OF ty_vbap,
+  posnr TYPE vbap-posnr,
+  matnr TYPE vbap-matnr,
+  arktx TYPe vbap-arktx,
+  kwmeng TYPE vbap-kwmeng,
+  zieme TYPE vbap-zieme,
+  netwr TYPE vbap-netwr,
+  END OF ty_vbap.
+TYPES : BEGIN OF ty_vbak,
+  vbeln TYPE vbak-vbeln,
+  audat TYPE vbak-audat,
+  netwr TYPE vbak-netwr,
+  kunnr TYPE vbak-kunnr,
+  END OF ty_vbak.
+
+  DATA : st_vbap TYPE ty_vbap,
+   st_vbak TYPE ty_vbak,
+   st_kna1 TYPE kna1-name1,
+   st_t006a TYPE t006a-mseht.
+
+  PARAMETERS : p_docnum TYPE vbak-vbeln.
+
+SELECT SINGLE vbeln audat netwr kunnr FROM vbak INTO st_vbak WHERE vbeln EQ p_docnum.
+SELECT SINGLE name1 FROM kna1 INTO st_kna1 WHERE kunnr EQ st_vbak-kunnr.
+   WRITE : / 'document number : ', st_vbak-vbeln,
+   / 'document date : ', st_vbak-audat,
+   / 'net value : ', st_vbak-netwr,
+   / 'sold to party : ', st_kna1.
+
+  WRITE : / 'Item',
+  20 'Material',
+  35 'Item description',
+  60 'order qty',
+  80 'UOM',
+  100 'Net value'.
+
+  SELECT posnr matnr arktx kwmeng zieme netwr FROM vbap INTO st_vbap WHERE vbeln EQ p_docnum.
+    SELECT SINGLE msehl FROM t006a INTO st_t006a WHERE spras EQ sy_langu AND msehi EQ st_vbap-zieme.
+    WRITE :/ st_vbap-posnr,
+    20 st_vbap-matnr,
+    35 st_vbap-arktx,
+    50 st_vbap-kwmeng,
+    80 st_t006a,
+    90 st_vbap-netwr.
+    ENDSELECT.
+    50 st_vbap-kwmeng,
+    80 st_t006a,
+    90 st_vbap-netwr.
+    ENDSELECT.

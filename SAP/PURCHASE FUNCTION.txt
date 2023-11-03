@@ -1,0 +1,60 @@
+FUNCTION
+
+
+
+*&---------------------------------------------------------------------*
+*& Report ZAISH_PURCHASE_FUNCTION
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zaish_purchase_function.
+DATA :it_header    TYPE zaish_header_table,
+      wa_header    LIKE LINE OF it_header,
+      it_item      TYPE zaish_item_table,
+      wa_item      LIKE LINE OF it_item.
+
+SELECT-OPTIONS s_num FOR wa_header-vbeln.
+
+START-OF-SELECTION.
+
+  CALL FUNCTION 'ZAISH_PURCHASE_HEADER'
+    EXPORTING
+      im_s_num  = s_num[]
+    IMPORTING
+      ex_header = it_header.
+
+
+  CALL FUNCTION 'ZAISH_PURCHASE_HEADER_DISPLAY'
+    EXPORTING
+      im_it_header = it_header.
+*    IMPORTING
+*      ex_wa_header = .
+
+END-OF-SELECTION.
+
+AT LINE-SELECTION.
+  DATA : fnam(20),
+         fval(50),
+         v_vbeln TYPE vbap-vbeln.
+
+  GET CURSOR FIELD fnam VALUE fval.
+
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+    EXPORTING
+      input  = fval
+    IMPORTING
+      output = v_vbeln.
+
+  CLEAR it_item.
+
+  CALL FUNCTION 'ZAISH_PURCHASE_ITEM'
+    EXPORTING
+      im_v_vbeln = v_vbeln
+    IMPORTING
+      ex_item    = it_item.
+
+  CALL FUNCTION 'ZAISH_PURCHASE_ITEM_DISPLAY'
+    EXPORTING
+      im_it_item = it_item.
+*        IMPORTING
+*     EX_WA_ITEM =   .

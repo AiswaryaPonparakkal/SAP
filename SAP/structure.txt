@@ -1,0 +1,22 @@
+structure intro
+--------------------
+
+
+REPORT ZAISWARYA_STRUCTURE.
+
+DATA v_matnr TYPE makt-matnr.
+
+TYPES : BEGIN OF ty_makt,
+  matnr TYPE makt-matnr,
+  spras TYPE makt-spras,
+  maktx TYPE makt-maktx,
+  END OF ty_makt.
+
+DATA st_makt TYPE ty_makt.
+
+  v_matnr = '23'.
+  WRITE v_matnr.
+*  st_matnr = '33'.
+*  WRITE st_matnr.
+st_makt = '32'.
+WRITE st_makt.
