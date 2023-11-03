@@ -1,0 +1,63 @@
+oops
+
+*&---------------------------------------------------------------------*
+*& Report ZAISH_OOP
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zaish_oop.
+CLASS c_counter DEFINITION.
+
+  PUBLIC SECTION.
+    DATA count TYPE i.
+
+    METHODS addition EXPORTING num TYPE i.
+
+ENDCLASS.
+
+CLASS c_counter IMPLEMENTATION.
+  METHOD addition.
+    num = count + 1.
+    count = num.
+  ENDMETHOD.
+ENDCLASS.
+
+
+DATA : o_obj TYPE REF TO c_counter,
+       v_doc TYPE i,
+       v_tag TYPE i.
+
+START-OF-SELECTION.
+  CREATE OBJECT o_obj.
+
+  o_obj->count = 1.
+
+  o_obj->addition(
+    IMPORTING
+      num = v_doc
+  ).
+
+  o_obj->addition(
+    IMPORTING
+      num = v_tag
+  ).
+
+  o_obj->addition(
+    IMPORTING
+      num = v_doc
+  ).
+
+  o_obj->addition(
+    IMPORTING
+      num = v_doc
+  ).
+
+  o_obj->addition(
+    IMPORTING
+      num = v_doc
+  ).
+
+  o_obj->addition(
+    IMPORTING
+      num = v_tag
+  ).

@@ -31,7 +31,7 @@ SELECT SINGLE name1 FROM kna1 INTO st_kna1 WHERE kunnr EQ st_vbak-kunnr.
    / 'document date : ', st_vbak-audat,
    / 'net value : ', st_vbak-netwr,
    / 'sold to party : ', st_kna1.
-CLASS 7
+-------------------------------------
 
 REPORT ZAISH_PURCHASE.
 TYPES :BEGIN OF ty_vbap,
