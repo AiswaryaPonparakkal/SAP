@@ -1,0 +1,30 @@
+se18 - find , se19 - implementation
+enhancement sport -> give name -> create 
+in (enh spot element definition) 
+-> on top of BAdi definition (create BAdi)
+-> give name 
+-> tick limited filter user
+-> give name -> yes -> save -> yes 
+-> give method -> instance method
+-> activate go back activate
+-> right click implimentation -> create BAdi implimentation
+-> give enhancement name 
+-> BAdi imp name
+-> implimentation class -> give method function
+-> activated
+goto se38 write prgm.
+
+
+*&---------------------------------------------------------------------*
+*& Report ZAISH_BADI_PRGM
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZAISH_BADI_PRGM.
+DATA o_badi TYPE REF TO zaish_badi_def.
+PARAMETERS p_ctry TYPE c LENGTH 20.
+GET BADI o_badi
+FILTERS
+country = p_ctry.
+CALL BADI o_badi->cal_gst.
+write 'end'.

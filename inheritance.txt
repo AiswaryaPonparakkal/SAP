@@ -1,0 +1,24 @@
+INHERITANCE 
+
+-> create super class (untick final)
+-> add attributes, method
+-> create sub class ( add superr class , untick final)
+-> write prgm.
+
+*&---------------------------------------------------------------------*
+*& Report ZAISH_SUPER
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zaish_super.
+DATA  : o_super TYPE REF TO zcl_aish_super_class,
+        o_sub   TYPE REF TO zcl_aish_sub_class.
+CREATE OBJECT : o_sub, o_super.
+
+
+o_sub->get_job( ).
+o_super = O_SUB.
+*O_SUB ?= o_super.  " dont show error in compile time error but shows error in run time
+o_super->get_id( ).
+o_sub->get_id( ).
+WRITE 'END'.
